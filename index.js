@@ -80,10 +80,10 @@ addItem.style.color = "green";
 // secondItem.style.color = "pink";
 
 // Making odd list's background color gray
-let odd = document.querySelectorAll('li:nth-child(odd)');
-for(let i=0;i<odd.length;i++){
-    odd[i].style.backgroundColor = "gray";
-}
+// let odd = document.querySelectorAll('li:nth-child(odd)');
+// for(let i=0;i<odd.length;i++){
+//     odd[i].style.backgroundColor = "gray";
+// }
 
 
 // Making even list's background color yellow
@@ -95,7 +95,9 @@ even.forEach(function(item){
 
 // Making 3rd list item to green background
 let items = document.getElementsByClassName('list-group-item');
-items[2].style.backgroundColor = "green";
+// items[2].style.backgroundColor = "green";
+// console.log(items);
+
 
 // Making all list items font bold
 for(let i=0;i<items.length;i++){
@@ -108,3 +110,23 @@ let li = document.getElementsByTagName("li");
 for(let i=0;i<li.length;i++){
     li[i].style.color = "blue";
 }
+// console.log(li);
+
+// Making 2nd list item background color to green
+// let item2 = document.querySelector('li:nth-child(2)');
+// item2.style.backgroundColor = "green";
+// Making 3rd list item invisible
+let item3 = document.querySelector('li:nth-child(3)');
+// item3.style.display = "none";
+item3.style.visibility = "hidden";
+
+// Using querySelectorAll changing font color green of 2nd list item
+let listItem2 = document.querySelectorAll("li");
+listItem2[1].style.color = "green";
+
+
+// Making odd list's background color green
+let odd = document.querySelectorAll('li:nth-child(odd)');
+odd.forEach(function(item){
+    item.style.backgroundColor = "green";
+});
