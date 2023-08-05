@@ -151,7 +151,7 @@ node.parentNode.style.backgroundColor="cyan";
 //children
 // console.log(node.children);
 // console.log(node.children[2]);
-node.children[2].style.backgroundColor = "pink";
+// node.children[2].style.backgroundColor = "pink";
 
 //firstChild
 // console.log(node.firstChild);
@@ -184,35 +184,78 @@ node.previousElementSibling.style.color = "green";
 //Adding Hello World before Item Lister
 
 //createElement -> creating div here
-let newDiv = document.createElement('div');
-//Adding class
-newDiv.className = 'hello';
-//Adding id
-newDiv.id = 'myDiv';
-//Adding attribute
-newDiv.setAttribute('title','This is my div');
-newDiv.setAttribute('value','Another div');
+// let newDiv = document.createElement('div');
+// //Adding class
+// newDiv.className = 'hello';
+// //Adding id
+// newDiv.id = 'myDiv';
+// //Adding attribute
+// newDiv.setAttribute('title','This is my div');
+// newDiv.setAttribute('value','Another div');
 
-//creating text node
-let newDivText = document.createTextNode('Hello World');
+// //creating text node
+// let newDivText = document.createTextNode('Hello World');
 
-//Add text to div
-newDiv.appendChild(newDivText);
-console.log(newDiv);
-
-
-//Adding element to DOM
-var container = document.querySelector('header .container');
-var h1 = document.querySelector('header h1');
-container.insertBefore(newDiv, h1);
+// //Add text to div
+// newDiv.appendChild(newDivText);
+// console.log(newDiv);
 
 
+// //Adding element to DOM
+// var container = document.querySelector('header .container');
+// var h1 = document.querySelector('header h1');
+// container.insertBefore(newDiv, h1);
 
-//Adding Hello World before Item 1
-let listItem1 = document.createElement('li');
-listItem1.className = 'list-group-item';
-let listItem1Text = document.createTextNode('Hello World');
-listItem1.appendChild(listItem1Text);
-let ul = document.querySelector('.list-group');
-let item1 = document.querySelector('.list-group-item');
-ul.insertBefore(listItem1,item1);
+
+
+// //Adding Hello World before Item 1
+// let listItem1 = document.createElement('li');
+// listItem1.className = 'list-group-item';
+// let listItem1Text = document.createTextNode('Hello World');
+// listItem1.appendChild(listItem1Text);
+// let ul = document.querySelector('.list-group');
+// let item1 = document.querySelector('.list-group-item');
+// ul.insertBefore(listItem1,item1);
+
+
+// Working Item Lister code
+let form = document.getElementById('addForm');
+let itemList = document.getElementById('items');
+
+//Form submit event
+form.addEventListener('submit',addItem);
+
+//Delete event 
+itemList.addEventListener('click',removeItem);
+
+
+function addItem(e){
+    e.preventDefault();
+    let newItem = document.getElementById('item').value;
+    let li = document.createElement('li');
+    li.className = 'list-group-item';
+    li.appendChild(document.createTextNode(newItem));
+
+    //Adding edit button to li
+    let editBtn = document.createElement('button');
+    editBtn.className = 'btn btn-success btn-sm float-right edit';
+    editBtn.appendChild(document.createTextNode('Edit'));
+    li.appendChild(editBtn);
+
+    //Adding delete button to li
+    let delBtn = document.createElement('button');
+    delBtn.className = 'btn btn-danger btn-sm float-right delete';
+    delBtn.appendChild(document.createTextNode('X'));
+    li.appendChild(delBtn);
+
+    itemList.appendChild(li);
+}
+
+function removeItem(e){
+    if(e.target.classList.contains('delete')){
+        if(confirm('Are you sure?')){
+            let li = e.target.parentElement;
+            itemList.removeChild(li);
+        }
+    }
+}
