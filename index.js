@@ -221,6 +221,7 @@ node.previousElementSibling.style.color = "green";
 // Working Item Lister code
 let form = document.getElementById('addForm');
 let itemList = document.getElementById('items');
+let filter = document.getElementById('filter');
 
 //Form submit event
 form.addEventListener('submit',addItem);
@@ -228,18 +229,26 @@ form.addEventListener('submit',addItem);
 //Delete event 
 itemList.addEventListener('click',removeItem);
 
+//Filter event
+filter.addEventListener('keyup',filterItems);
 
 function addItem(e){
     e.preventDefault();
     let newItem = document.getElementById('item').value;
+    let newDesc = document.getElementById('description').value;
     let li = document.createElement('li');
     li.className = 'list-group-item';
-    li.appendChild(document.createTextNode(newItem));
+    let bold = document.createElement('b');
+    bold.appendChild(document.createTextNode(newItem));
+    li.appendChild(bold);
+    let br = document.createElement('br');
+    li.appendChild(br);
+    li.appendChild(document.createTextNode(newDesc));
 
     //Adding edit button to li
     let editBtn = document.createElement('button');
     editBtn.className = 'btn btn-success btn-sm float-right edit';
-    editBtn.appendChild(document.createTextNode('Edit'));
+    editBtn.appendChild(document.createTextNode('EDIT'));
     li.appendChild(editBtn);
 
     //Adding delete button to li
@@ -259,3 +268,32 @@ function removeItem(e){
         }
     }
 }
+
+function filterItems(e){
+    //convert text to lowercase
+    let text = e.target.value.toLowerCase();
+    //Get list items
+    let items = itemList.getElementsByTagName('li');
+    //Convert to an array
+    Array.from(items).forEach(function(item){
+        let itemName = item.firstChild.textContent;
+        let descName = item.firstChild.nextSibling.nextSibling.textContent;
+        if((itemName.toLowerCase().indexOf(text) != -1) || (descName.toLowerCase().indexOf(text) != -1)){
+            item.style.display = 'block';
+        }else{
+            item.style.display = 'none';
+        }
+    });
+}
+
+// //Edit event
+// itemList.addEventListener('click',editItem);
+
+// function editItem(e){
+//     if(e.target.classList.contains('edit')){
+//         let li = e.target.parentElement;
+//         document.getElementById('item').value = li.textContent;
+//         let editItem = document.getElementById('item').value;
+//         li.firstChild = editItem;
+//     }
+// }
